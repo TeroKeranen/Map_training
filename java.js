@@ -1,19 +1,26 @@
-const helsinki = { lat: 60.211, lng: 24.8385103 };
+// Lista kaupungeista object muodossa
+const lista = {
+  helsinki: { lat: 60.211, lng: 24.8385103 },
+  kuopio: { lat: 62.9973437, lng: 27.1134636 },
+};
 
-// Marker
-function marker(position) {
-  new google.maps.Marker({
-    position: position,
-    map: map,
-  });
-}
-
-// show map
+// Functio jolla näkyy kartta
 function initMap() {
+  const myLatLng = { lat: 60.211, lng: 24.8385103 };
   map = new google.maps.Map(document.getElementById("googleMap"), {
-    center: helsinki,
-    zoom: 8,
+    center: myLatLng,
+    zoom: 5,
   });
 
-  marker(helsinki);
+  // Apufunction jolla merkitään karttaan kaupunkeja joita listassa lyötyy
+  function markIt(city) {
+    let kaupunki = lista[city];
+    new google.maps.Marker({
+      position: kaupunki,
+      map: map,
+    });
+  }
+
+  markIt("kuopio");
+  markIt("helsinki");
 }
